@@ -1,0 +1,12 @@
+{
+	"keys": {
+		"screen_id": "",
+		"access_key": ""
+	},
+	"screen_settings": {
+		"startup": "0",
+		"shutdown": "0",
+		"always_on": false,
+		"content_variant": ""
+	}
+}
