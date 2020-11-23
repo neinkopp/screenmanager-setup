@@ -1,14 +1,21 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
 import requests
 import sys
 import time
 import csv
+import random
+import string
+from scripts.colorify import colorify
 from scripts.registration import register
 
 print("\033c")
 print(
-    "\033[1;34mGeben Sie bitte die Identifikationsnummer des einzurichtenden Bildschirms ein:\033[0m\n"
+    colorify("blue_bold", True,
+             "Geben Sie bitte die Identifikationsnummer des einzurichtenden Bildschirms ein:\n")
 )
-val = input("\033[32m> ")
+val = input(colorify("green", False, "> "))
 print("\033[0m")
 
 print("Identifikationsnummer wird überprüft. Bitte warten", end="")
@@ -23,33 +30,38 @@ result = register(val)
 
 if result != True:
     sys.exit(
-        "\033[1;91m\tERR_034: Der Bildschirm mit der angegebenen Identifikationsnummer wurde nicht gefunden. \033[0m\n"
+        colorify("red_bold", True,
+                 "\tERR_034: Der Bildschirm mit der angegebenen Identifikationsnummer wurde nicht gefunden.\n")
     )
 else:
     print(
-        "\033[32mDie Einrichtung des Bildschirms wurde gefunden.\n\nBefindet sich die Einrichtungswebsite für diesen Bildschirm bereits vor Ihnen?\033[0m\n"
+        colorify("green", True, "Die Einrichtung des Bildschirms wurde gefunden.\n\nBefindet sich die Einrichtungswebsite für diesen Bildschirm bereits vor Ihnen?\n")
     )
     choice = "False"
     while (choice.lower() != "ja") and (choice.lower() != "nein"):
         choice = input("Ja/Nein: ")
     if choice.lower() == "ja":
         print(
-            "\n\033[1;34mDrücken Sie auf der Einrichtungsseite des Bildschirms bitte auf 'Registrierung überprüfen'.\033[0m"
+            colorify("blue_bold", True,
+                     "\nDrücken Sie auf der Einrichtungsseite des Bildschirms bitte auf 'Registrierung überprüfen'.")
         )
         input("Fortfahren (Eingabetaste)...")
         print("\033c")
     else:
         print(
-            "\n\033[1;34mRufen Sie bitte nun auf einem externen Endgerät die Einrichtungswebsite für diesen Bildschirm auf.\033[0m"
+            colorify("blue_bold", True,
+                     "\nRufen Sie bitte nun auf einem externen Endgerät die Einrichtungswebsite für diesen Bildschirm auf.")
         )
         input("Anschließend drücken Sie bitte hier die Eingabetaste...")
         print("\033c")
 
 print(
-    "\n\033[1;34mGeben Sie nun in das Eingabefeld auf der Seite den folgenden Bestätigungscode ein:\033[0m\n"
+    colorify("blue_bold", True,
+             "\nGeben Sie nun in das Eingabefeld auf der Seite den folgenden Bestätigungscode ein (Groß- und Kleinschreibung beachten!):\n")
 )
-print("\033[1;35mS8AS37F\033[0m\n")
+print(colorify("magenta_bold", True, ''.join(random.choices(
+    string.ascii_letters + string.digits, k=7)) + "\n"))
 
-print("\033[1;34mAnschließend drücken Sie bitte auf 'Bestätigen'.\033[0m\n")
+print(colorify("blue_bold", True, "Anschließend drücken Sie bitte auf 'Bestätigen'.\n"))
 
 input("Drücken Sie die Eingabetaste, um fortzufahren...")
