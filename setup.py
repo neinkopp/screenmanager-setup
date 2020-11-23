@@ -46,22 +46,21 @@ else:
                      "\nDrücken Sie auf der Einrichtungsseite des Bildschirms bitte auf 'Registrierung überprüfen'.")
         )
         input("Fortfahren (Eingabetaste)...")
-        print("\033c")
     else:
         print(
             colorify("blue_bold", True,
-                     "\nRufen Sie bitte nun auf einem externen Endgerät die Einrichtungswebsite für diesen Bildschirm auf.")
+                     "\nRufen Sie bitte die Einrichtungswebsite für diesen Bildschirm auf.")
         )
         input("Anschließend drücken Sie bitte hier die Eingabetaste...")
-        print("\033c")
 
+print("\033c")
 print(
     colorify("blue_bold", True,
-             "\nGeben Sie nun in das Eingabefeld auf der Seite den folgenden Bestätigungscode ein (Groß- und Kleinschreibung beachten!):\n")
+             "Geben Sie nun in das Eingabefeld auf der Seite den folgenden Bestätigungscode ein (Groß- und Kleinschreibung beachten!):\n")
 )
 print(colorify("magenta_bold", True, ''.join(random.choices(
     string.ascii_letters + string.digits, k=7)) + "\n"))
 
-print(colorify("blue_bold", True, "Anschließend drücken Sie bitte auf 'Bestätigen'.\n"))
+print(colorify("blue_bold", True, "Anschließend drücken Sie bitte auf 'Bestätigen'."))
 
 input("Drücken Sie die Eingabetaste, um fortzufahren...")
