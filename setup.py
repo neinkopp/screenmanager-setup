@@ -1,66 +1,61 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 
-import requests
-import sys
+import subprocess
 import time
-import csv
-import random
-import string
+import sys
 from scripts.colorify import colorify
-from scripts.registration import register
 
-print("\033c")
-print(
-    colorify("blue_bold", True,
-             "Geben Sie bitte die Identifikationsnummer des einzurichtenden Bildschirms ein:\n")
-)
-val = input(colorify("green", False, "> "))
-print("\033[0m")
+print("\033c", end="")
+print(colorify("blue_bold", True, "Nachfolgend wird Ihr Raspberry Pi aktualisiert. \nAußerdem wird Ihr System konfiguriert und wichtige Programme werden installiert.\nDies dauert in der Regel einige Minuten. Am Ende wird der Raspberry Pi neugestartet."))
+input("Zum Fortfahren drücken Sie bitte die Eingabetaste, zum Abbrechen Strg + C...")
+print("Bitte warten...\n")
 
-print("Identifikationsnummer wird überprüft. Bitte warten", end="")
-for i in reversed(range(1, 4)):
-    print(".", end=""),
-    sys.stdout.flush()
-    time.sleep(1)
-print("\n")
+returncode = 0
+step = 0
 
-# Überprüfen
-result = register(val)
+if returncode == 0:
+	cmd = subprocess.run(["sudo", "apt-get", "update", "-qq"])
+	returncode = cmd.returncode
+	print(colorify("magenta_bold", True, "Schritt 1/6 abgeschlossen."))
+	step + 1
 
-if result != True:
-    sys.exit(
-        colorify("red_bold", True,
-                 "\tERR_034: Der Bildschirm mit der angegebenen Identifikationsnummer wurde nicht gefunden.\n")
-    )
+if returncode == 0:
+	cmd = subprocess.run(["sudo", "apt-get", "dist-upgrade", "-qq"])
+	returncode = cmd.returncode
+	print(colorify("magenta_bold", True, "Schritt 2/6 abgeschlossen."))
+	step + 1
+
+if returncode == 0:
+	cmd = subprocess.run(["sudo", "timedatectl", "set-timezone", "Europe/Berlin"])
+	returncode = cmd.returncode
+	print(colorify("magenta_bold", True, "Schritt 3/6 abgeschlossen."))
+	step + 1
+
+if returncode == 0:
+	cmd = subprocess.run(
+		["sudo", "dpkg-reconfigure", "--frontend", "noninteractive", "tzdata"])
+	returncode = cmd.returncode
+	print(colorify("magenta_bold", True, "Schritt 4/6 abgeschlossen."))
+	step + 1
+
+if returncode == 0:
+	cmd = subprocess.run(["sudo", "apt-get", "install", "python-crontab", "-qq"])
+	returncode = cmd.returncode
+	print(colorify("magenta_bold", True, "Schritt 5/6 abgeschlossen."))
+	step + 1
+
+if returncode == 0:
+	cmd = subprocess.run(["sudo", "apt", "autoremove", "-y"])
+	returncode = cmd.returncode
+	print(colorify("magenta_bold", True, "Schritt 6/6 abgeschlossen."))
+	step + 1
+
+if returncode == 0 and step == 6:
+	print(colorify("blue_bold", True,
+                "Alle Schritte wurden erfolgreich abgeschlossen. Starte in 10 Sekunden neu..."))
+	time.sleep(10)
+	subprocess.run(["sudo", "reboot"])
 else:
-    print(
-        colorify("green", True, "Die Einrichtung des Bildschirms wurde gefunden.\n\nBefindet sich die Einrichtungswebsite für diesen Bildschirm bereits vor Ihnen?\n")
-    )
-    choice = "False"
-    while (choice.lower() != "ja") and (choice.lower() != "nein"):
-        choice = input("Ja/Nein: ")
-    if choice.lower() == "ja":
-        print(
-            colorify("blue_bold", True,
-                     "\nDrücken Sie auf der Einrichtungsseite des Bildschirms bitte auf 'Registrierung überprüfen'.")
-        )
-        input("Fortfahren (Eingabetaste)...")
-    else:
-        print(
-            colorify("blue_bold", True,
-                     "\nRufen Sie bitte die Einrichtungswebsite für diesen Bildschirm auf.")
-        )
-        input("Anschließend drücken Sie bitte hier die Eingabetaste...")
-
-print("\033c")
-print(
-    colorify("blue_bold", True,
-             "Geben Sie nun in das Eingabefeld auf der Seite den folgenden Bestätigungscode ein (Groß- und Kleinschreibung beachten!):\n")
-)
-print(colorify("magenta_bold", True, ''.join(random.choices(
-    string.ascii_letters + string.digits, k=7)) + "\n"))
-
-print(colorify("blue_bold", True, "Anschließend drücken Sie bitte auf 'Bestätigen'."))
-
-input("Drücken Sie die Eingabetaste, um fortzufahren...")
+	sys.exit(colorify("red_bold", True,
+                   "Es ist mindestens ein Fehler aufgetreten. Kontaktieren Sie bitte den Administrator."))
