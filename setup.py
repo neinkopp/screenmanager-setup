@@ -57,5 +57,7 @@ if returncode == 0 and step == 6:
 	time.sleep(10)
 	subprocess.run(["sudo", "reboot"])
 else:
+	print(returncode)
+	print(step)
 	sys.exit(colorify("red_bold", True,
                    "Es ist mindestens ein Fehler aufgetreten. Kontaktieren Sie bitte den Administrator."))
