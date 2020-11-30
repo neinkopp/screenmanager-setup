@@ -41,9 +41,9 @@ def setScreenTime(code):
 		end = cron.new(command="echo 'standby 0' | cec-client -s -d 1",
 		               comment="CEC", user=True)
 		from datetime import datetime
- 		now = datetime.now()
- 		starttime = now.replace(hour=7, minute=30, second=0, microsecond=0)
- 		endtime = now.replace(hour=16, minute=30, second=0, microsecond=0)
+		now = datetime.now()
+		starttime = now.replace(hour=7, minute=30, second=0, microsecond=0)
+		endtime = now.replace(hour=16, minute=30, second=0, microsecond=0)
 		if now < starttime or now > endtime:
 			return tv.standby()
 		else:
