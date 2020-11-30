@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
-from crontab import CronTab
-import re
-import cec
-
-cec.init()
-tv = cec.Device(cec.CECDEVICE_TV)  # CEC initialisieren
 
 
 def current_screentime():
+	from crontab import CronTab
+	import re
+	import cec
+
+	cec.init()
+	tv = cec.Device(cec.CECDEVICE_TV)  # CEC initialisieren
 	cron = CronTab()
 
 	# finde Cronjob mit "CEC" im Comment
@@ -24,6 +24,12 @@ def current_screentime():
 
 
 def setScreenTime(code):
+	from crontab import CronTab
+	import re
+	import cec
+
+	cec.init()
+	tv = cec.Device(cec.CECDEVICE_TV)  # CEC initialisieren
 	if isinstance(code, int) != True or not code <= 2 or not code >= 0:
 		return False
 	elif(current_screentime() == code):
