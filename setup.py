@@ -57,7 +57,7 @@ if returncode == 0:
 	print(colorify("magenta_bold", True, "Schritt 7/7 abgeschlossen."))
 	step = step + 1
 
-if returncode == 0 and step == 6:
+if returncode == 0 and step == 7:
 	print(colorify("blue_bold", True,
                 "Alle Schritte wurden erfolgreich abgeschlossen. Starte in 10 Sekunden neu..."))
 	time.sleep(10)
