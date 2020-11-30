@@ -17,38 +17,44 @@ step = 0
 if returncode == 0:
 	cmd = subprocess.run(["sudo", "apt-get", "update", "-qq"])
 	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 1/6 abgeschlossen."))
+	print(colorify("magenta_bold", True, "Schritt 1/7 abgeschlossen."))
 	step = step + 1
 
 if returncode == 0:
 	cmd = subprocess.run(["sudo", "apt-get", "dist-upgrade", "-qq"])
 	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 2/6 abgeschlossen."))
+	print(colorify("magenta_bold", True, "Schritt 2/7 abgeschlossen."))
 	step = step + 1
 
 if returncode == 0:
 	cmd = subprocess.run(["sudo", "timedatectl", "set-timezone", "Europe/Berlin"])
 	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 3/6 abgeschlossen."))
+	print(colorify("magenta_bold", True, "Schritt 3/7 abgeschlossen."))
 	step = step + 1
 
 if returncode == 0:
 	cmd = subprocess.run(
 		["sudo", "dpkg-reconfigure", "--frontend", "noninteractive", "tzdata"])
 	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 4/6 abgeschlossen."))
+	print(colorify("magenta_bold", True, "Schritt 4/7 abgeschlossen."))
+	step = step + 1
+
+if returncode == 0:
+	cmd = subprocess.run(["sudo", "apt-get", "install", "cec-utils", "-qq"])
+	returncode = cmd.returncode
+	print(colorify("magenta_bold", True, "Schritt 5/7 abgeschlossen."))
 	step = step + 1
 
 if returncode == 0:
 	cmd = subprocess.run(["sudo", "apt-get", "install", "python3-crontab", "-qq"])
 	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 5/6 abgeschlossen."))
+	print(colorify("magenta_bold", True, "Schritt 6/7 abgeschlossen."))
 	step = step + 1
 
 if returncode == 0:
 	cmd = subprocess.run(["sudo", "apt", "autoremove", "-y"])
 	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 6/6 abgeschlossen."))
+	print(colorify("magenta_bold", True, "Schritt 7/7 abgeschlossen."))
 	step = step + 1
 
 if returncode == 0 and step == 6:
