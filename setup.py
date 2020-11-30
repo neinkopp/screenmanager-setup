@@ -40,7 +40,7 @@ if returncode == 0:
 	step = step + 1
 
 if returncode == 0:
-	cmd = subprocess.run(["sudo", "apt-get", "install", "python-crontab", "-qq"])
+	cmd = subprocess.run(["sudo", "apt-get", "install", "python3-crontab", "-qq"])
 	returncode = cmd.returncode
 	print(colorify("magenta_bold", True, "Schritt 5/6 abgeschlossen."))
 	step = step + 1
