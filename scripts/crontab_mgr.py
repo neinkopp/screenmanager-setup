@@ -72,5 +72,5 @@ def setScreenTime(code):
 	if code == 2:
 		cron.remove_all(comment='CEC')
 		cron.write()
-		power_on = tv.power_on()
-		return power_on
+		tv.power_on()
+		return "Executed"
