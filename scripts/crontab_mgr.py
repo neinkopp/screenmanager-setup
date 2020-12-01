@@ -33,6 +33,7 @@ def setScreenTime(code):
 		return False
 	elif(current_screentime() == code):
 		return True
+	print("First Block")
 
 	cron = CronTab(user=True)
 
