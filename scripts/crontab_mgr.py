@@ -4,20 +4,19 @@
 
 def current_screentime():
 	from crontab import CronTab
-	import re
 	import cec
 
 	cec.init()
 	tv = cec.Device(cec.CECDEVICE_TV)  # CEC initialisieren
-	cron = CronTab()
+	cron = CronTab(user=True)
 
 	# finde Cronjob mit "CEC" im Comment
-	iter = cron.find_comment(re.compile('CEC'))
+	iter = cron.find_comment('CEC')
 	for job in iter:
 		if job:
 			return 1  # wenn es einen solchen Cronjob gibt, muss eine Bildschirmzeit existieren
 
-	if(tv.is_on()):  # wenn der Fernseher an ist, muss er zwl. kontinuierlich eingeschaltet sein
+	if(tv.is_on()):  # wenn der Fernseher an ist, muss er zwangsl. kontinuierlich eingeschaltet sein
 		return 2
 	else:  # wenn nicht, dann muss er kontinuierlich ausgeschaltet sein
 		return 0
@@ -35,7 +34,7 @@ def setScreenTime(code):
 	elif(current_screentime() == code):
 		return True
 
-	cron = CronTab
+	cron = CronTab(user=True)
 
 	if code == 0:
 		cron.remove_all(comment='CEC')
