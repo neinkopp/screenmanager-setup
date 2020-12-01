@@ -1,6 +1,8 @@
 from crontab_mgr import setScreenTime
 from crontab_mgr import current_screentime
-import t_functions
+from t_functions import toggle
+from t_functions import powerOn
+from t_functions import standby
 
 func = input("func: ")
 
