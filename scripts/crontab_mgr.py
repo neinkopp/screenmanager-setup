@@ -16,10 +16,13 @@ def current_screentime():
 		if job:
 			return 1  # wenn es einen solchen Cronjob gibt, muss eine Bildschirmzeit existieren
 
-	if(tv.is_on()):  # wenn der Fernseher an ist, muss er zwangsl. kontinuierlich eingeschaltet sein
-		return 2
-	else:  # wenn nicht, dann muss er kontinuierlich ausgeschaltet sein
-		return 0
+	try:
+		if(tv.is_on()):  # wenn der Fernseher an ist, muss er zwangsl. kontinuierlich eingeschaltet sein
+			return 2
+		else:  # wenn nicht, dann muss er kontinuierlich ausgeschaltet sein
+			return 0
+	except OSError:
+		return False
 
 
 def setScreenTime(code):
