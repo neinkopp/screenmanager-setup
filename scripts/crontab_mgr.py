@@ -47,6 +47,12 @@ def setScreenTime(code):
 		                 comment="CEC", user=True)
 		end = cron.new(command="echo 'standby 0' | cec-client -s -d 1",
 		               comment="CEC", user=True)
+		start.hour.on(7)
+		start.minute.on(30)
+		
+		end.hour.on(16)
+		end.minute.on(30)
+
 		cron.write()
 		from datetime import datetime
 		now = datetime.now()
