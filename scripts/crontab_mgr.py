@@ -31,8 +31,6 @@ def setScreenTime(code):
 
 	if isinstance(code, int) != True or not code <= 2 or not code >= 0:
 		return False
-	elif(current_screentime() == code):
-		return True
 	print("First Block")
 
 	cron = CronTab(user=True)
@@ -49,7 +47,7 @@ def setScreenTime(code):
 		               comment="CEC", user=True)
 		start.hour.on(7)
 		start.minute.on(30)
-		
+
 		end.hour.on(16)
 		end.minute.on(30)
 
