@@ -39,6 +39,7 @@ def setScreenTime(code):
 
 	if code == 0:
 		cron.remove_all(comment='CEC')
+		cron.write()
 		return tv.standby()
 
 	if code == 1:
@@ -46,6 +47,7 @@ def setScreenTime(code):
 		                 comment="CEC", user=True)
 		end = cron.new(command="echo 'standby 0' | cec-client -s -d 1",
 		               comment="CEC", user=True)
+		cron.write()
 		from datetime import datetime
 		now = datetime.now()
 		starttime = now.replace(hour=7, minute=30, second=0, microsecond=0)
@@ -57,4 +59,5 @@ def setScreenTime(code):
 
 	if code == 2:
 		cron.remove_all(comment='CEC')
+		cron.write()
 		return tv.power_on()
