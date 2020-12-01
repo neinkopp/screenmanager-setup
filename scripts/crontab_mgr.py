@@ -52,10 +52,18 @@ def setScreenTime(code):
 		now = datetime.now()
 		starttime = now.replace(hour=7, minute=30, second=0, microsecond=0)
 		endtime = now.replace(hour=16, minute=30, second=0, microsecond=0)
-		if now < starttime or now > endtime:
-			return tv.standby()
-		else:
-			return tv.power_on()
+		except_count = 0
+		while True:
+			try:
+				if now < starttime or now > endtime:
+					return tv.standby()
+				else:
+					return tv.power_on()
+			except OSError:
+				except_count + 1
+				if except_count >= 10:
+					print("trying " + str(except_count + 1) + ". time")
+					pass
 
 	if code == 2:
 		cron.remove_all(comment='CEC')
