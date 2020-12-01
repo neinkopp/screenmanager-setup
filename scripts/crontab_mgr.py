@@ -27,11 +27,8 @@ def current_screentime():
 
 def setScreenTime(code):
 	from crontab import CronTab
-	import re
-	import cec
+	from tv_cmds import tvCommand
 
-	cec.init()
-	tv = cec.Device(cec.CECDEVICE_TV)  # CEC initialisieren
 	if isinstance(code, int) != True or not code <= 2 or not code >= 0:
 		return False
 	elif(current_screentime() == code):
@@ -43,8 +40,7 @@ def setScreenTime(code):
 	if code == 0:
 		cron.remove_all(comment='CEC')
 		cron.write()
-		standby = tv.standby()
-		return standby
+		return tvCommand("standby")
 
 	if code == 1:
 		start = cron.new(command="echo 'on 0' | cec-client -s -d 1",
@@ -56,21 +52,12 @@ def setScreenTime(code):
 		now = datetime.now()
 		starttime = now.replace(hour=7, minute=30, second=0, microsecond=0)
 		endtime = now.replace(hour=16, minute=30, second=0, microsecond=0)
-		except_count = 0
-		while True:
-			try:
-				if now < starttime or now > endtime:
-					return tv.standby()
-				else:
-					return tv.power_on()
-			except OSError:
-				except_count + 1
-				if except_count >= 10:
-					print("trying " + str(except_count + 1) + ". time")
-					pass
+		if now < starttime or now > endtime:
+			return tvCommand("standby")
+		else:
+			return tvCommand("power_on")
 
 	if code == 2:
 		cron.remove_all(comment='CEC')
 		cron.write()
-		tv.power_on()
-		return "Executed"
+		return tvCommand("power_on")
