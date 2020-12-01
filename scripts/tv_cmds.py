@@ -3,11 +3,23 @@ def tvCommand(command="toggle"):
 	cec.init()
 	tv = cec.Device(cec.CECDEVICE_TV)
 	if command == "power_on":
-		return tv.power_on()
+		while tv.power_on() != True:
+			pass
+		else:
+			return True
 	elif command == "standby":
-		return tv.standby()
+		while tv.standby() != True:
+			pass
+		else:
+			return True
 	elif command == "toggle":
 		if tv.is_on():
-			return tv.standby()
+			while tv.standby() != True:
+				pass
+			else:
+				return True
 		else:
-			return tv.power_on()
+			while tv.power_on() != True:
+				pass
+			else:
+				return True
