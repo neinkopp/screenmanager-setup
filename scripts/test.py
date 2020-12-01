@@ -1,5 +1,5 @@
 from crontab_mgr import setScreenTime
 from crontab_mgr import current_screentime
+from t_functions import toggle
 
-code = input("Timecode: ")
-print(setScreenTime(int(code)))
+print(toggle())
