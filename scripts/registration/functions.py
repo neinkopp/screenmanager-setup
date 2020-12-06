@@ -51,7 +51,8 @@ def initialize(setup_key, confirm_key):
 
 		res = writeConfig()
 
-		return print("Result:", res)
+		if not res:
+			return print("Failed. Result:", res)
 
 		with open(config_path, "r") as configfile:
 			screen_settings = json.loads(configfile)['screen_settings']
