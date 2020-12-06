@@ -27,7 +27,7 @@ def current_screentime():
 
 def setScreenTime(code):
 	from crontab import CronTab
-	from tv_cmds import tvCommand
+	from scripts.execute.tv_cmds import tvCommand
 
 	if isinstance(code, int) != True or not code <= 2 or not code >= 0:
 		return False
