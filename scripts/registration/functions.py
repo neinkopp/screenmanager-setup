@@ -44,6 +44,17 @@ def initialize(setup_key, confirm_key):
 		except IOError as e:
 			return e
 
-		return writeConfig()
+		if not writeConfig():
+			return False
+
+		with open(config_path, "r") as configfile:
+			screen_settings = json.loads(configfile)['screen_settings']
+
+		from scripts.execute.screen_time import setScreenTime
+		if setScreenTime(screen_settings['SCREEN_TIME']):
+			return True
+		else:
+			return "Fehler beim Einstellen des ST-Codes"
+
 	else:
 		return False
