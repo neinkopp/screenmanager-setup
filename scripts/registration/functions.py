@@ -58,7 +58,7 @@ def initialize(setup_key, confirm_key):
 			screen_settings = json.load(configfile)['screen_settings']
 
 		from scripts.execute.screen_time import setScreenTime
-		if setScreenTime(screen_settings['SCREEN_TIME']):
+		if setScreenTime(int(screen_settings['SCREEN_TIME'])):
 			return True
 		else:
 			return "Fehler beim Einstellen des ST-Codes"
