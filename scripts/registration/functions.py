@@ -55,7 +55,7 @@ def initialize(setup_key, confirm_key):
 			return print("Failed. Result:", res)
 
 		with open(config_path, "r") as configfile:
-			screen_settings = json.loads(configfile)['screen_settings']
+			screen_settings = json.load(configfile)['screen_settings']
 
 		from scripts.execute.screen_time import setScreenTime
 		if setScreenTime(screen_settings['SCREEN_TIME']):
