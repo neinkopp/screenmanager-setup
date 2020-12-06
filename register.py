@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 
-import requests
 import sys
 import time
 import csv
 import random
 import string
 from scripts.colorify import colorify
-from scripts.registration import register
+from scripts.registration.functions import setupPass
+from scripts.registration.functions import initialize
 
 print("\033c")
 print(
@@ -26,41 +26,42 @@ for i in reversed(range(1, 4)):
 print("\n")
 
 # Überprüfen
-result = register(val)
+confirm_key = ''.join(random.choices(
+    string.ascii_letters + string.digits, k=7))
 
-if result != True:
+result = setupPass(val, confirm_key)
+
+if result == False:
     sys.exit(
         colorify("red_bold", True,
-                 "\tERR_034: Der Bildschirm mit der angegebenen Identifikationsnummer wurde nicht gefunden.\n")
+                 "\tFEHLER: Der Bildschirm mit der angegebenen Identifikationsnummer wurde nicht gefunden / die Registrierung ist vorher bereits abgeschlossen worden.\n")
     )
-else:
-    print(
-        colorify("green", True, "Die Einrichtung des Bildschirms wurde gefunden.\n\nBefindet sich die Einrichtungswebsite für diesen Bildschirm bereits vor Ihnen?\n")
-    )
-    choice = "False"
-    while (choice.lower() != "ja") and (choice.lower() != "nein"):
-        choice = input("Ja/Nein: ")
-    if choice.lower() == "ja":
-        print(
-            colorify("blue_bold", True,
-                     "\nDrücken Sie auf der Einrichtungsseite des Bildschirms bitte auf 'Registrierung überprüfen'.")
-        )
-        input("Fortfahren (Eingabetaste)...")
-    else:
-        print(
-            colorify("blue_bold", True,
-                     "\nRufen Sie bitte die Einrichtungswebsite für diesen Bildschirm auf.")
-        )
-        input("Anschließend drücken Sie bitte hier die Eingabetaste...")
+
 
 print("\033c")
 print(
-    colorify("blue_bold", True,
-             "Geben Sie nun in das Eingabefeld auf der Seite den folgenden Bestätigungscode ein (Groß- und Kleinschreibung beachten!):\n")
+    colorify("green", True, "Der Bildschirm mit dem Namen '") + colorify("magenta", True,
+                                                                         result) + colorify("green", True, "' wurde gefunden und kann nun eingerichtet werden.")
 )
-print(colorify("magenta_bold", True, ''.join(random.choices(
-    string.ascii_letters + string.digits, k=7)) + "\n"))
+print(
+    colorify("blue_bold", True,
+             "Geben Sie bitte in das Eingabefeld auf der Einrichtungswebseite den folgenden Bestätigungscode ein (Groß- und Kleinschreibung beachten!):\n")
+)
 
-print(colorify("blue_bold", True, "Anschließend drücken Sie bitte auf 'Bestätigen'."))
+print(colorify("magenta_bold", True, confirm_key + "\n"))
 
-input("Drücken Sie die Eingabetaste, um fortzufahren...")
+print(colorify("blue_bold", True, "Anschließend drücken Sie bitte auf 'Registrierung abschließen' und folgen den weiteren Anweisungen.\n\nSobald Sie damit fertig sind, können Sie hier mit der Einrichtung fortfahren."))
+
+input("Drücken Sie (nach abgeschlossener Konfiguration) die Eingabetaste, um fortzufahren...")
+
+# if not initialize(val, confirm_key):
+# 	sys.exit(
+#             colorify("red_bold", True,
+#                      "\tFEHLER: Konnte Bildschirm nicht initialisieren. Bitte setzen Sie Ihr System neu auf.\n")
+#         )
+# else:
+# 	colorify("green", True,
+# 	         "Bildschirm wurde erfolgreich eingerichtet und sollte nun nach Plan funtionieren.")
+# 	sys.exit()
+
+print(initialize(val, confirm_key))

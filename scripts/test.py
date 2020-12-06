@@ -1,5 +1,5 @@
-from crontab_mgr import setScreenTime
-from crontab_mgr import current_screentime
+from screen_time import setScreenTime
+from screen_time import current_screentime
 
 val = input("cmd: ")
 print(setScreenTime(int(val)))

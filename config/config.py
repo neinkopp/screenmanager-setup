@@ -1,22 +1,30 @@
-import json
-import requests
-import sys
+def writeConfig():
+	import json
+	import requests
+	import sys
+	from pathlib import Path
 
-r = requests.get("http://localhost/ui/api.php")
-r.json()
-if r.status_code != 200:
-	sys.exit('ERROR: STATUS_CODE IS ' + str(r.status_code))
-rjson = json.loads(r.text)
+	config_path = "./config/config.json"
 
-config_path = "./config/config.json"
+	if Path(config_path).exists():
+		with open(config_path, "r") as configfile:
+			config_content = json.load(configfile)
+	else:
+		return False
+	access_key = config_content['access_key']
 
-with open(config_path, "r") as configfile:
-	config_content = json.load(configfile)
+	r = requests.get(
+		"http://localhost/ui/api.php?config&access_key=" + access_key)
 
-if rjson['screen_settings'] != config_content['screen_settings']:
-	config_content['screen_settings'] = rjson['screen_settings']
-	with open(config_path, "w") as configfile:
-		json.dump(config_content, configfile, indent=4)
-		print("Modified config!")
-else:
-	print('Continue.')
+	if r.status_code != 200:
+		return str(r.status_code)
+
+	rjson = json.loads(r.text)
+
+	if rjson != config_content['screen_settings']:
+		config_content['screen_settings'] = rjson
+		with open(config_path, "w") as configfile:
+			json.dump(config_content, configfile, indent=4)
+			return True
+	else:
+		return True

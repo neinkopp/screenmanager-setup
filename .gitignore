@@ -1,6 +1,8 @@
 # vscode
-
 .vscode/
+
+# Generated config file:
+config.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
