@@ -10,6 +10,8 @@ def writeConfig():
 	config_path = "../../config/config.json"
 	config_path = os.path.join(THIS_FOLDER, config_path)
 
+	return config_path
+
 	if Path(config_path).exists():
 		with open(config_path, "r") as configfile:
 			config_content = json.load(configfile)

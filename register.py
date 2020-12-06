@@ -10,7 +10,7 @@ from scripts.colorify import colorify
 from scripts.registration.functions import setupPass
 from scripts.registration.functions import initialize
 
-print("\033c")
+print("\033c", end="")
 print(
     colorify("blue_bold", True,
              "Geben Sie bitte die Identifikationsnummer des einzurichtenden Bildschirms ein:\n")

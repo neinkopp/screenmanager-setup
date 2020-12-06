@@ -49,8 +49,9 @@ def initialize(setup_key, confirm_key):
 		except IOError as e:
 			return e
 
-		if not writeConfig():
-			return False
+		res = writeConfig()
+
+		return print("Result:", res)
 
 		with open(config_path, "r") as configfile:
 			screen_settings = json.loads(configfile)['screen_settings']
