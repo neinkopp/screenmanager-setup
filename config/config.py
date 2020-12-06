@@ -1,10 +1,14 @@
 def writeConfig():
+	import os
 	import json
 	import requests
 	import sys
 	from pathlib import Path
 
-	config_path = "./config/config.json"
+	THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+
+	config_path = "../../config/config.json"
+	config_path = os.path.join(THIS_FOLDER, config_path)
 
 	if Path(config_path).exists():
 		with open(config_path, "r") as configfile:

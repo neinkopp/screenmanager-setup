@@ -13,6 +13,7 @@ def setupPass(setup_key, confirm_key):
 
 
 def initialize(setup_key, confirm_key):
+	import os
 	import requests
 	import json
 	from pathlib import Path
@@ -31,7 +32,11 @@ def initialize(setup_key, confirm_key):
 
 			}
 		}
-		config_path = "./config/config.json"
+
+		THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+
+		config_path = "../../config/config.json"
+		config_path = os.path.join(THIS_FOLDER, config_path)
 
 		try:
 			with open(config_path, 'w') as configfile:
