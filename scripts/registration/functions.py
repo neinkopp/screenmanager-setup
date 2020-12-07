@@ -59,6 +59,18 @@ def initialize(setup_key, confirm_key):
 
 		from scripts.execute.screen_time import setScreenTime
 		if setScreenTime(int(screen_settings['SCREEN_TIME'])):
+
+			from crontab import CronTab
+
+			cron = CronTab(user=True)
+			cron.remove_all(comment="CONFIG")
+
+			config = cron.new(command=str(Path.home()) +
+			                  "/config/config_job.py", comment="CONFIG")
+			config.minute.every(1)
+
+			cron.write()
+
 			return True
 		else:
 			return "Fehler beim Einstellen des ST-Codes"
