@@ -9,7 +9,6 @@ def writeConfig():
 
 	config_path = "config.json"
 	config_path = os.path.join(THIS_FOLDER, config_path)
-	sys.exit(config_path)
 
 	if Path(config_path).exists():
 		with open(config_path, "r") as configfile:
