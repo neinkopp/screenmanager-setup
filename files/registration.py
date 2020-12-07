@@ -66,7 +66,7 @@ def initialize(setup_key, confirm_key):
 			cron.remove_all(comment="CONFIG")
 
 			config = cron.new(command=os.path.join(
-				os.getcwd(), "config_job.py"), comment="CONFIG")
+				os.getcwd(), "screenmanager-setup/config_job.py"), comment="CONFIG")
 			config.minute.every(1)
 
 			cron.write()
