@@ -50,6 +50,7 @@ def setScreenTime(code):
 	if code == 0:
 		cron.remove_all(comment='CEC')
 		cron.write()
+		print("Second Block")
 		return tvCommand("standby")
 
 	if code == 1:
