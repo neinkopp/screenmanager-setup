@@ -65,8 +65,8 @@ def initialize(setup_key, confirm_key):
 			cron = CronTab(user=True)
 			cron.remove_all(comment="CONFIG")
 
-			config = cron.new(command=os.getcwd() +
-			                  "/config/config_job.py", comment="CONFIG")
+			config = cron.new(command=os.path.join(
+				os.getcwd(), "config_job.py"), comment="CONFIG")
 			config.minute.every(1)
 
 			cron.write()
