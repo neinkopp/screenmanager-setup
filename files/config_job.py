@@ -1,4 +1,5 @@
 import os
+import sys
 from screen.screen_time import current_screentime, setScreenTime
 from config import writeConfig
 
@@ -10,7 +11,7 @@ try:
 	with open(config_path, "r") as configfile:
 		screen_settings = json.load(configfile)['screen_settings']
 except IOError as e:
-	return e
+	sys.exit(e)
 
 config = writeConfig()
 
