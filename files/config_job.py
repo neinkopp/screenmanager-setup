@@ -1,8 +1,11 @@
 import os
 import sys
 import json
+import cec
 from screen.screen_time import current_screentime, setScreenTime
 from config import writeConfig
+
+cec.init()
 
 try:
 	THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
