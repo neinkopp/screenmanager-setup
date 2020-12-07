@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 from screen.screen_time import current_screentime, setScreenTime
 from config import writeConfig
 
