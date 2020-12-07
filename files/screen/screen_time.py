@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 
-def tvCommand(command="toggle",init=True):
+def tvCommand(command="toggle"):
 	import cec
 	if init:
 		cec.init()
@@ -15,6 +15,7 @@ def tvCommand(command="toggle",init=True):
 			return tv.standby()
 		else:
 			return tv.power_on()
+
 
 def current_screentime():
 	from crontab import CronTab
@@ -39,7 +40,7 @@ def current_screentime():
 		return False
 
 
-def setScreenTime(code, init=True):
+def setScreenTime(code):
 	from crontab import CronTab
 
 	if isinstance(code, int) != True or not code <= 2 or not code >= 0:
@@ -52,7 +53,7 @@ def setScreenTime(code, init=True):
 		cron.remove_all(comment='CEC')
 		cron.write()
 		print("Second Block")
-		return tvCommand("standby",init)
+		return tvCommand("standby")
 
 	if code == 1:
 		cron.remove_all(comment='CEC')
@@ -72,11 +73,11 @@ def setScreenTime(code, init=True):
 		starttime = now.replace(hour=7, minute=30, second=0, microsecond=0)
 		endtime = now.replace(hour=16, minute=30, second=0, microsecond=0)
 		if now < starttime or now > endtime:
-			return tvCommand("standby",init)
+			return tvCommand("standby")
 		else:
-			return tvCommand("power_on",init)
+			return tvCommand("power_on")
 
 	if code == 2:
 		cron.remove_all(comment='CEC')
 		cron.write()
-		return tvCommand("power_on",init)
+		return tvCommand("power_on")

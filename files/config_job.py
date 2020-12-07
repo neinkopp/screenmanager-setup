@@ -18,7 +18,8 @@ except IOError as e:
 
 #sys.exit("SC-Code ist: " + str(screen_settings['SCREEN_TIME']))
 
-print(setScreenTime(int(screen_settings['SCREEN_TIME']), False))
+screen_time = setScreenTime(int(screen_settings['SCREEN_TIME']))
+print(screen_time)
 
 if not config or not screen_time:
 	from datetime import datetime
