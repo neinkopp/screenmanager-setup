@@ -1,9 +1,20 @@
+import os
 from screen.screen_time import current_screentime, setScreenTime
 from config import writeConfig
 
+try:
+	THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+	config_path = "config.json"
+	config_path = os.path.join(THIS_FOLDER, config_path)
+
+	with open(config_path, "r") as configfile:
+		screen_settings = json.load(configfile)['screen_settings']
+except IOError as e:
+	return e
+
 config = writeConfig()
 
-screen_time = setScreenTime(current_screentime())
+screen_time = setScreenTime(int(screen_settings['SCREEN_TIME']))
 
 if not config or not screen_time:
 	from datetime import datetime
