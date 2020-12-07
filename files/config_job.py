@@ -1,11 +1,8 @@
 import os
 import sys
 import json
-import cec
 from screen.screen_time import current_screentime, setScreenTime, tvCommand
 from config import writeConfig
-
-cec.init()
 
 config = writeConfig()
 
@@ -21,7 +18,7 @@ except IOError as e:
 
 #sys.exit("SC-Code ist: " + str(screen_settings['SCREEN_TIME']))
 
-screen_time = setScreenTime(int(screen_settings['SCREEN_TIME']))
+print(setScreenTime(int(screen_settings['SCREEN_TIME']), False))
 
 if not config or not screen_time:
 	from datetime import datetime
