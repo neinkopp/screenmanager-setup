@@ -17,7 +17,7 @@ def initialize(setup_key, confirm_key):
 	import requests
 	import json
 	from pathlib import Path
-	from config import writeConfig
+	from files.config import writeConfig
 
 	payload = {
 		"setup_key": setup_key,
