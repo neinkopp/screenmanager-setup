@@ -7,6 +7,8 @@ from config import writeConfig
 
 cec.init()
 
+config = writeConfig()
+
 try:
 	THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 	config_path = "config.json"
@@ -17,7 +19,7 @@ try:
 except IOError as e:
 	sys.exit(e)
 
-config = writeConfig()
+sys.exit("SC-Code ist: " + str(screen_settings['SCREEN_TIME']))
 
 screen_time = setScreenTime(int(screen_settings['SCREEN_TIME']))
 
