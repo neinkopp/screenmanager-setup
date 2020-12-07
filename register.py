@@ -6,9 +6,9 @@ import time
 import csv
 import random
 import string
-from scripts.colorify import colorify
-from scripts.registration.functions import setupPass
-from scripts.registration.functions import initialize
+from files.tools.colorify import colorify
+from files.registration import setupPass
+from files.registration import initialize
 
 print("\033c", end="")
 print(

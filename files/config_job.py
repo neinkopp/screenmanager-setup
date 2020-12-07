@@ -1,5 +1,5 @@
-from config.config import writeConfig
-from scripts.execute.screen_time import current_screentime, setScreenTime
+from screen.screen_time import current_screentime, setScreenTime
+from config import writeConfig
 
 config = writeConfig()
 

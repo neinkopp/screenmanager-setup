@@ -17,7 +17,7 @@ def initialize(setup_key, confirm_key):
 	import requests
 	import json
 	from pathlib import Path
-	from config.config import writeConfig
+	from config import writeConfig
 
 	payload = {
 		"setup_key": setup_key,
@@ -35,7 +35,7 @@ def initialize(setup_key, confirm_key):
 
 		THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
-		config_path = "../../config/config.json"
+		config_path = "config.json"
 		config_path = os.path.join(THIS_FOLDER, config_path)
 
 		try:
@@ -57,7 +57,7 @@ def initialize(setup_key, confirm_key):
 		with open(config_path, "r") as configfile:
 			screen_settings = json.load(configfile)['screen_settings']
 
-		from scripts.execute.screen_time import setScreenTime
+		from files.screen.screen_time import setScreenTime
 		if setScreenTime(int(screen_settings['SCREEN_TIME'])):
 
 			from crontab import CronTab

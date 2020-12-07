@@ -1,6 +1,19 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 
+def tvCommand(command="toggle"):
+	import cec
+	cec.init()
+	tv = cec.Device(cec.CECDEVICE_TV)
+	if command == "power_on":
+		return tv.power_on()
+	elif command == "standby":
+		return tv.standby()
+	elif command == "toggle":
+		if tv.is_on():
+			return tv.standby()
+		else:
+			return tv.power_on()
 
 def current_screentime():
 	from crontab import CronTab
@@ -27,7 +40,6 @@ def current_screentime():
 
 def setScreenTime(code):
 	from crontab import CronTab
-	from scripts.execute.tv_cmds import tvCommand
 
 	if isinstance(code, int) != True or not code <= 2 or not code >= 0:
 		return False
