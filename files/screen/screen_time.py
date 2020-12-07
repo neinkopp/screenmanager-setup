@@ -3,8 +3,7 @@
 
 def tvCommand(command="toggle"):
 	import cec
-	if init:
-		cec.init()
+	cec.init()
 	tv = cec.Device(cec.CECDEVICE_TV)
 	if command == "power_on":
 		return tv.power_on()
