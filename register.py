@@ -55,14 +55,15 @@ print(colorify("blue_bold", True, "Anschließend drücken Sie bitte auf 'Registr
 
 input("Drücken Sie (nach abgeschlossener Konfiguration) die Eingabetaste, um fortzufahren...")
 
-# if not initialize(val, confirm_key):
-# 	sys.exit(
-#             colorify("red_bold", True,
-#                      "\tFEHLER: Konnte Bildschirm nicht initialisieren. Bitte setzen Sie Ihr System neu auf.\n")
-#         )
-# else:
-# 	colorify("green", True,
-# 	         "Bildschirm wurde erfolgreich eingerichtet und sollte nun nach Plan funtionieren.")
-# 	sys.exit()
-
-print(initialize(val, confirm_key))
+if not initialize(val, confirm_key):
+	sys.exit(
+            colorify("red_bold", True,
+                     "\tFEHLER: Konnte Bildschirm nicht initialisieren. Bitte setzen Sie Ihr System neu auf.\n")
+        )
+else:
+	import os
+	colorify("green", True,
+	         "Bildschirm wurde erfolgreich eingerichtet und sollte nun nach Plan funtionieren. Starte in 5 Sekunden neu, um Änderungen zu übernehmen...")
+	time.sleep(5)
+	os.system('sudo reboot')
+	sys.exit()
