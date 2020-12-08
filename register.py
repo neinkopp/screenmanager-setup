@@ -3,7 +3,6 @@
 
 import sys
 import time
-import os
 import csv
 import random
 import string
@@ -11,9 +10,6 @@ from files.tools.colorify import colorify
 from files.registration import setupPass
 from files.registration import initialize
 
-if os.geteuid() != 0:
-	sys.exit(colorify("red_bold", True,
-                   "Sie müssen root-Berechtigungen haben, um diese Datei auszuführen. Geben Sie vor dem Befehl 'sudo' ein. (sudo python3 [...])"))
 
 print("\033c", end="")
 print(
