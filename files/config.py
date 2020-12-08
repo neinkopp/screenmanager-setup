@@ -18,7 +18,7 @@ def writeConfig():
 	access_key = config_content['access_key']
 
 	r = requests.get(
-		"http://192.168.178.74/ui/api.php?config&access_key=" + access_key)
+		"https://infoscreen.ahfs.de/api.php?config&access_key=" + access_key)
 
 	if r.status_code != 200:
 		return str(r.status_code)

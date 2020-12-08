@@ -5,7 +5,7 @@ def setupPass(setup_key, confirm_key):
 		"setup_key": setup_key,
 		"confirm_key": confirm_key
 	}
-	r = requests.post("http://192.168.178.74/ui/api.php?register", data=payload)
+	r = requests.post("https://infoscreen.ahfs.de/api.php?register", data=payload)
 	if r.status_code == 201:
 		return json.loads(r.text)["name"]
 	else:
@@ -24,7 +24,7 @@ def initialize(setup_key, confirm_key):
 		"confirm_key": confirm_key
 	}
 	r = requests.post(
-		"http://192.168.178.74/ui/api.php?get_access_key", data=payload)
+		"https://infoscreen.ahfs.de/api.php?get_access_key", data=payload)
 	if r.status_code == 200:
 		config_skeleton = {
 			"access_key": "",
@@ -59,17 +59,18 @@ def initialize(setup_key, confirm_key):
 
 		from files.screen.screen_time import setScreenTime
 		if setScreenTime(int(screen_settings['SCREEN_TIME'])):
+			import urllib.parse
+
+			website = "https://infoscreen.ahfs.de/screens/?"
+			params = {"access_key": config_skeleton['access_key']}
+			query_string = urllib.parse.urlencode(params)
+			url = website + query_string
 
 			fpostxt_path = "/boot/fullpageos.txt"
 
 			try:
-				with open(config_path, 'w') as configfile:
-					json.dump(config_skeleton, configfile, indent=4)
-
-				config_skeleton['access_key'] = json.loads(r.text)['access_key']
-
-				with open(config_path, 'w') as configfile:
-					json.dump(config_skeleton, configfile, indent=4)
+				with open(fpostxt_path, 'w+') as urlfile:
+					urlfile.write(url)
 			except IOError as e:
 				return e
 
