@@ -4,7 +4,7 @@
 import subprocess
 import time
 import sys
-from scripts.colorify import colorify
+from files.tools.colorify import colorify
 
 print("\033c", end="")
 print(colorify("blue_bold", True, "Nachfolgend wird Ihr Raspberry Pi aktualisiert. \nAußerdem wird Ihr System konfiguriert und wichtige Programme werden installiert.\nDies dauert in der Regel einige Minuten. Am Ende wird der Raspberry Pi neugestartet."))

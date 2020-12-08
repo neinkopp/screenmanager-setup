@@ -60,6 +60,7 @@ def initialize(setup_key, confirm_key):
 		from files.screen.screen_time import setScreenTime
 		if setScreenTime(int(screen_settings['SCREEN_TIME'])):
 			import urllib.parse
+			import subprocess
 
 			website = "https://infoscreen.ahfs.de/screens/?"
 			params = {"access_key": config_skeleton['access_key']}
@@ -67,12 +68,9 @@ def initialize(setup_key, confirm_key):
 			url = website + query_string
 
 			fpostxt_path = "/boot/fullpageos.txt"
-
-			try:
-				with open(fpostxt_path, 'w+') as urlfile:
-					urlfile.write(url)
-			except IOError as e:
-				return e
+			fprocess = subprocess.run(["sudo", "python3", "files/write_fpos.py", url])
+			if fprocess.returncode != 0:
+				return fprocess.returncode
 
 			from crontab import CronTab
 
