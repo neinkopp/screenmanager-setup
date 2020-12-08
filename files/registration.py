@@ -67,8 +67,10 @@ def initialize(setup_key, confirm_key):
 			query_string = urllib.parse.urlencode(params)
 			url = website + query_string
 
+			writefpos_path = os.path.join(THIS_FOLDER, "write_fpos.py")
+
 			fpostxt_path = "/boot/fullpageos.txt"
-			fprocess = subprocess.run(["sudo", "python3", "files/write_fpos.py", url])
+			fprocess = subprocess.run(["sudo", "python3", writefpos_path, url])
 			if fprocess.returncode != 0:
 				return fprocess.returncode
 
