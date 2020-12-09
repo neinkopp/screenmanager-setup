@@ -7,7 +7,7 @@ import sys
 from files.tools.colorify import colorify
 
 print("\033c", end="")
-print(colorify("blue_bold", True, "Nachfolgend wird Ihr Raspberry Pi aktualisiert. \nAußerdem wird Ihr System konfiguriert und wichtige Programme werden installiert.\nDies dauert in der Regel einige Minuten (3-15). Am Ende wird der Raspberry Pi neugestartet."))
+print(colorify("green_bold", True, "Nachfolgend wird Ihr Raspberry Pi aktualisiert. \nAußerdem wird Ihr System konfiguriert und wichtige Programme werden installiert.\nDies dauert in der Regel einige Minuten (3-15). Am Ende wird der Raspberry Pi neugestartet."))
 input("Zum Fortfahren drücken Sie bitte die Eingabetaste, zum Abbrechen Strg + C...")
 print("Bitte warten...\n")
 
