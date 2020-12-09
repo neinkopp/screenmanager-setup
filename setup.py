@@ -26,8 +26,8 @@ for index, command in enumerate(commands_to_run, start=1):
 	if returncode == 0:
 		cmd = subprocess.run(command)
 		returncode = cmd.returncode
-		print(colorify("magenta_bold", True, "Schritt " + index +
-                 "/", str(len(commands_to_run)), " abgeschlossen."))
+		print(colorify("magenta_bold", True, "Schritt " + str(index) +
+                 "/" + str(len(commands_to_run)) + " abgeschlossen."))
 
 if returncode == 0:
 	print(colorify("green_bold", True,
