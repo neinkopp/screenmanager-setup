@@ -7,63 +7,33 @@ import sys
 from files.tools.colorify import colorify
 
 print("\033c", end="")
-print(colorify("blue_bold", True, "Nachfolgend wird Ihr Raspberry Pi aktualisiert. \nAußerdem wird Ihr System konfiguriert und wichtige Programme werden installiert.\nDies dauert in der Regel einige Minuten. Am Ende wird der Raspberry Pi neugestartet."))
+print(colorify("blue_bold", True, "Nachfolgend wird Ihr Raspberry Pi aktualisiert. \nAußerdem wird Ihr System konfiguriert und wichtige Programme werden installiert.\nDies dauert in der Regel einige Minuten (3-15). Am Ende wird der Raspberry Pi neugestartet."))
 input("Zum Fortfahren drücken Sie bitte die Eingabetaste, zum Abbrechen Strg + C...")
 print("Bitte warten...\n")
 
 returncode = 0
-step = 0
+
+commands_to_run = {
+	["sudo", "apt-get", "update", "-qq"],
+	["sudo", "apt-get", "dist-upgrade", "-qq"],
+	["sudo", "timedatectl", "set-timezone", "Europe/Berlin"],
+	["sudo", "apt-get", "install", "cec-utils", "libcec-dev", "python3-pip", "-qq"],
+	["pip3", "install", "python-crontab", "cec"],
+	["sudo", "apt", "autoremove", "-y"]
+}
+
+for index, command in enumerate(commands_to_run, start=1):
+	if returncode == 0:
+		cmd = subprocess.run(command)
+		returncode = cmd.returncode
+		print(colorify("magenta_bold", True, "Schritt " + index +
+                 "/" + len(commands_to_run) + " abgeschlossen."))
 
 if returncode == 0:
-	cmd = subprocess.run(["sudo", "apt-get", "update", "-qq"])
-	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 1/7 abgeschlossen."))
-	step = step + 1
-
-if returncode == 0:
-	cmd = subprocess.run(["sudo", "apt-get", "dist-upgrade", "-qq"])
-	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 2/7 abgeschlossen."))
-	step = step + 1
-
-if returncode == 0:
-	cmd = subprocess.run(["sudo", "timedatectl", "set-timezone", "Europe/Berlin"])
-	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 3/7 abgeschlossen."))
-	step = step + 1
-
-if returncode == 0:
-	cmd = subprocess.run(
-		["sudo", "dpkg-reconfigure", "--frontend", "noninteractive", "tzdata"])
-	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 4/7 abgeschlossen."))
-	step = step + 1
-
-if returncode == 0:
-	cmd = subprocess.run(["sudo", "apt-get", "install", "cec-utils", "-qq"])
-	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 5/7 abgeschlossen."))
-	step = step + 1
-
-if returncode == 0:
-	cmd = subprocess.run(["sudo", "apt-get", "install", "python3-crontab", "-qq"])
-	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 6/7 abgeschlossen."))
-	step = step + 1
-
-if returncode == 0:
-	cmd = subprocess.run(["sudo", "apt", "autoremove", "-y"])
-	returncode = cmd.returncode
-	print(colorify("magenta_bold", True, "Schritt 7/7 abgeschlossen."))
-	step = step + 1
-
-if returncode == 0 and step == 7:
-	print(colorify("blue_bold", True,
-                "Alle Schritte wurden erfolgreich abgeschlossen. Starte in 10 Sekunden neu..."))
-	time.sleep(10)
+	print(colorify("green_bold", True,
+                "Raspberry Pi wurde erfolgreich eingerichtet. Starte in 5 Sekunden neu..."))
 	subprocess.run(["sudo", "reboot"])
 else:
 	print(returncode)
-	print(step)
 	sys.exit(colorify("red_bold", True,
-                   "Es ist mindestens ein Fehler aufgetreten. Kontaktieren Sie bitte den Administrator."))
+                   "Es ist mindestens ein Fehler aufgetreten und die Einrichtung wurde nicht abgeschlossen."))
