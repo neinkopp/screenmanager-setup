@@ -13,14 +13,14 @@ print("Bitte warten...\n")
 
 returncode = 0
 
-commands_to_run = {
+commands_to_run = [
 	["sudo", "apt-get", "update", "-qq"],
 	["sudo", "apt-get", "dist-upgrade", "-qq"],
 	["sudo", "timedatectl", "set-timezone", "Europe/Berlin"],
 	["sudo", "apt-get", "install", "cec-utils", "libcec-dev", "python3-pip", "-qq"],
 	["pip3", "install", "python-crontab", "cec"],
 	["sudo", "apt", "autoremove", "-y"]
-}
+]
 
 for index, command in enumerate(commands_to_run, start=1):
 	if returncode == 0:
