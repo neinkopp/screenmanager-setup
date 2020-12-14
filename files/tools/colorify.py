@@ -4,6 +4,7 @@ def colorify(color, escape, text):
 	colors = {
 		"blue": "\033[34m",
 		"blue_bold": "\033[1;34m",
+		"cyan": "\033[1;36m",
 		"green": "\033[32m",
 		"green_bold": "\033[1;32m",
 		"red_bold": "\033[1;91m",
