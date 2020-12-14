@@ -12,7 +12,7 @@ def mainMenu():
 	import json
 
 	THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-	config_path = os.path.join(THIS_FOLDER, "registrationProgress.jsonc")
+	config_path = os.path.join(THIS_FOLDER, "files/registrationProgress.jsonc")
 	try:
 		with open(config_path, "r") as cfile:
 			config_file = json.load(cfile)

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 
-def tvCommand(command="toggle"):
+def tvCommand(command="standby"):
 	import cec
 	cec.init()
 	tv = cec.Device(cec.CECDEVICE_TV)
@@ -9,11 +9,6 @@ def tvCommand(command="toggle"):
 		return tv.power_on()
 	elif command == "standby":
 		return tv.standby()
-	elif command == "toggle":
-		if tv.is_on():
-			return tv.standby()
-		else:
-			return tv.power_on()
 
 
 def current_screentime():
