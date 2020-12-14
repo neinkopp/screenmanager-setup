@@ -57,7 +57,7 @@ def mainMenu():
 			else:
 				register(screenTime=True)
 		elif int(val) == 2:
-			sys.exit(colorify("red", True, "Programm beendet."))
+			sys.exit(colorify("red_bold", True, "Programm beendet."))
 	else:
 		print("1: Registrierung zurücksetzen (NICHT FUNKTIONAL)")
 		print("2: Programm beenden")
