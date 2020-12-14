@@ -6,7 +6,25 @@ import time
 import sys
 from files.tools.colorify import colorify
 
-print("\033c", end="")
+
+def terminal_size():
+	import fcntl
+	import termios
+	import struct
+	h, w, hp, wp = struct.unpack('HHHH', fcntl.ioctl(
+		0, termios.TIOCGWINSZ, struct.pack('HHHH', 0, 0, 0, 0)))
+	return w, h
+
+
+print("\033[2J" + "\033[H", end="")
+
+for x in range(terminal_size()[0]):
+	print("\u2500", end="")
+
+print(colorify("cyan", True, "screenmanager-setup / setup"))
+
+for x in range(terminal_size()[0]):
+	print("\u2500", end="")
 print(colorify("green_bold", True, "Nachfolgend wird Ihr Raspberry Pi aktualisiert. \nAußerdem wird Ihr System konfiguriert und wichtige Programme werden installiert.\nDies dauert in der Regel einige Minuten (3-15). Am Ende wird der Raspberry Pi neugestartet."))
 input("Zum Fortfahren drücken Sie bitte die Eingabetaste, zum Abbrechen Strg + C...")
 print("Bitte warten...\n")
