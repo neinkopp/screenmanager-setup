@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 
+# Main menu
 def mainMenu():
 	import sys
 	from files.tools.colorify import colorify
@@ -69,3 +70,7 @@ def mainMenu():
 			mainMenu()
 		elif int(val) == 2:
 			sys.exit(colorify("red", True, "Programm beendet."))
+
+
+# Main execution
+mainMenu()
